@@ -17,7 +17,7 @@ HTML, CSS, Javascript, ThreeJS
 # UTILISATION 🕹️
 
 
-git clone : git@github.com:malick1302/SN4K3D.git
-Ouvrir le dossier dans Visual Studio Code
-Dans la barre sur la gauche EXPLORER faire un clique droit sur "home.html"
-Open with Live Server [⌘L ⌘O]
+- git clone : git@github.com:malick1302/SN4K3D.git
+- Ouvrir le dossier dans Visual Studio Code
+- Dans la barre sur la gauche EXPLORER faire un clique droit sur "home.html"
+- Open with Live Server [⌘L ⌘O]
