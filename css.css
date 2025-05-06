@@ -65,35 +65,3 @@ body {
       background-color: black;
       
 }
-
-canvas {
-  position: absolute;
-  /* top: calc(100px + 100px);  */
-  left: 0;
-  /* width: 100%; */
-  /* height: calc(100% - 100px);  */
-  background-color: rgb(1, 1, 1);
-}
-
-@media (max-width: 768px) {
-  /* canvas {
-    top: calc(80px + 5px); 
-    height: calc(100% - 80px); 
-  } */
-
-  header {
-    font-size: 50px; 
-    line-height: 1.5;
-    margin-left: 4%;
-  }
-}
-
-@media (max-width: 480px) {
-  header {
-    font-size: 30px; 
-    line-height: 1.2;
-    margin-left: 3%;
-
-  }
-}
-

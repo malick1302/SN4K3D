@@ -146,7 +146,7 @@ function resizeCanvas() {
   const header = document.querySelector('header'); 
   const headerHeight = header ? header.offsetHeight : 0; 
 
-  const width = window.innerWidth; 
+  const width = window.innerWidth - 30; 
   const height = window.innerHeight - headerHeight; 
 
 
