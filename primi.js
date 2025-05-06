@@ -144,7 +144,7 @@ function animate() {
 function resizeCanvas() {
   const canvas = document.querySelector('canvas');
   const header = document.querySelector('header'); 
-  const headerHeight = header ? header.offsetHeight : 0; 
+  const headerHeight = header ? header.offsetHeight : 3; 
 
   const width = window.innerWidth; 
   const height = window.innerHeight - headerHeight; 
