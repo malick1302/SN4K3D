@@ -2,27 +2,102 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+  
 }
 
-body, html {
-    height: 100%;
-    width: 100%;
-    background-color: black;
+header {
+    font-size: 100px;
+    line-height: 2.3;
+    text-align: center;
+    text-transform: uppercase;
+ 
 
+  }
+  
+  @supports (background-clip: text) or (-webkit-background-clip: text) {
+    header {
+      background-image: linear-gradient(
+        to right,
+        #0334fb,
+        #f6ff00,
+        #00ffff,
+        #bb6ef6,
+        #0334fb,
+        #f6ff00,
+        #00ffff,
+        #bb6ef6, 
+        #0334fb,
+        #f6ff00,
+        #00ffff,
+        #bb6ef6
+      );
+
+  
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    --bg-size: 200%;
+    color: transparent;
+    background-size: var(--bg-size);
+    animation: animate 2s linear infinite;
+  }
+
+  @keyframes animate {
+  
+    to {
+      background-position: var(--bg-size);
+    }
+  }
 }
+
+    
 
 main {
     position: relative; 
     height: 100vh; 
     width: 100%;
+    
+  
+}
+
+body {
+  overflow: hidden; 
+      background-color: black;
+      
 }
 
 canvas {
-    position: absolute; 
-    top: 0;
-    left: 0;
-    width: 50%;
-    height: 50%;
-    background-color: rgb(0, 0, 0);
+  position: absolute;
+  top: calc(100px + 100px); 
+  left: 0;
+  width: 100%;
+  height: calc(100% - 100px); 
+  background-color: rgb(1, 1, 1);
 }
 
+@media (max-width: 768px) {
+  canvas {
+    top: calc(80px + 5px); 
+    height: calc(100% - 80px); 
+  }
+
+  header {
+    font-size: 50px; 
+    line-height: 1.5;
+    margin-left: 4%;
+  }
+}
+
+@media (max-width: 480px) {
+  canvas {
+    top: calc(60px + 5px); 
+    height: calc(100% - 60px);
+  }
+
+  header {
+    font-size: 30px; 
+    line-height: 1.2;
+    margin-left: 3%;
+
+  }
+}

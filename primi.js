@@ -10,10 +10,9 @@ let moveInterval = 0.15;
 let accumulator = 0;
 let score = 0;
 let isGameOver = false;
-
 const gridSize = 20;
 const canvas = document.getElementById('c');
-const size = 600;
+const size = 700;
 
 
 const sharedGeometry = new THREE.TorusKnotGeometry(1, 1.6, 20, 8, 13, 10);
@@ -44,6 +43,7 @@ function init() {
   drawGridBorder();
   animateTorus();
 
+
   const head = createTorusKnot(headMaterial);
   head.position.set(0, 0, 0);
   scene.add(head);
@@ -70,9 +70,9 @@ function addLights() {
 
 function drawGridBorder() {
   const size = boxSize * gridSize;
-  const geometry = new THREE.BoxGeometry(size, size, 0.1);
+  const geometry = new THREE.BoxGeometry(size, size, 4.0 );
   const edges = new THREE.EdgesGeometry(geometry);
-  const line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0x333333 }));
+  const line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0x66666 }));
   scene.add(line);
 }
 
@@ -104,8 +104,6 @@ function spawnFood() {
   food.position.set(x, y, 0);
   scene.add(food);
 }
-
-
 
 
 
@@ -143,7 +141,26 @@ function animate() {
   renderer.render(scene, camera);
 }
 
+function resizeCanvas() {
+  const canvas = document.querySelector('canvas');
+  const header = document.querySelector('header'); 
+  const headerHeight = header ? header.offsetHeight : 0; 
 
+  const width = window.innerWidth; 
+  const height = window.innerHeight - headerHeight; 
+
+
+  canvas.style.width = `${width}px`;
+  canvas.style.height = `${height}px`;
+
+  renderer.setSize(width, height);
+  camera.aspect = width / height;
+  camera.updateProjectionMatrix();
+}
+
+resizeCanvas();
+
+window.addEventListener('resize', resizeCanvas);
 
 
 function updateSnake() {
