@@ -146,21 +146,37 @@ function resizeCanvas() {
   const header = document.querySelector('header'); 
   const headerHeight = header ? header.offsetHeight : 0; 
 
-  const width = window.innerWidth - 30; 
+  const width = window.innerWidth; 
   const height = window.innerHeight - headerHeight; 
 
-
+  // Met à jour la taille du canvas
   canvas.style.width = `${width}px`;
   canvas.style.height = `${height}px`;
 
+  // Met à jour le renderer
   renderer.setSize(width, height);
-  camera.aspect = width / height;
+
+  // Ajuste la caméra pour inclure tout le cadre
+  const aspectRatio = width / height;
+  const gridSizeInUnits = boxSize * gridSize; // Taille totale du cadre
+  const cameraDistance = gridSizeInUnits / (2 * Math.tan((camera.fov * Math.PI) / 360)); // Distance nécessaire pour voir tout le cadre
+
+  camera.aspect = aspectRatio;
+  camera.position.z = cameraDistance; // Ajuste la distance de la caméra
   camera.updateProjectionMatrix();
 }
 
+// Appelle la fonction au chargement de la page
 resizeCanvas();
 
+// Écoute les changements de taille de la fenêtre
 window.addEventListener('resize', resizeCanvas);
+
+
+
+
+
+
 
 
 function updateSnake() {

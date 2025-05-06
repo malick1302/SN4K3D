@@ -65,3 +65,13 @@ body {
       background-color: black;
       
 }
+
+canvas {
+  display: block;
+  position: absolute;
+  top: 30%; /* Ajustez en fonction de la hauteur du header */
+  left: 0;
+  width: 100%;
+  height: calc(100% - 100px); /* Hauteur totale moins la hauteur du header */
+  background-color: black;
+}
