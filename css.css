@@ -89,13 +89,7 @@ canvas {
 }
 
 @media (max-width: 480px) {
-  canvas {
-    top: calc(40px + 50px); 
-    height: calc(100% - 70px);
-    width: calc(10px + 100px);
-
-  }
-
+ 
   header {
     font-size: 30px; 
     line-height: 1.2;
