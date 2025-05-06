@@ -70,7 +70,7 @@ canvas {
   position: absolute;
   top: calc(100px + 100px); 
   left: 0;
-  width: 30%;
+  width: calc(50% - 30px); 
   height: calc(100% - 100px); 
   background-color: rgb(1, 1, 1);
 }
