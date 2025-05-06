@@ -76,10 +76,10 @@ canvas {
 }
 
 @media (max-width: 768px) {
-  canvas {
+  /* canvas {
     top: calc(80px + 5px); 
     height: calc(100% - 80px); 
-  }
+  } */
 
   header {
     font-size: 50px; 
