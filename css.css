@@ -101,3 +101,17 @@ canvas {
 
   }
 }
+
+@media (max-width: 390px) {
+  canvas {
+    top: calc(50px + 5px); 
+    height: calc(100% - 50px);
+  }
+
+  header {
+    font-size: 30px; 
+    line-height: 1.2;
+    margin-left: 3%;
+
+  }
+}
