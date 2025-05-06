@@ -68,10 +68,10 @@ body {
 
 canvas {
   position: absolute;
-  top: calc(100px + 100px); 
+  /* top: calc(100px + 100px);  */
   left: 0;
-  width: 100%;
-  height: calc(100% - 100px); 
+  /* width: 100%; */
+  /* height: calc(100% - 100px);  */
   background-color: rgb(1, 1, 1);
 }
 
