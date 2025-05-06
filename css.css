@@ -90,8 +90,10 @@ canvas {
 
 @media (max-width: 480px) {
   canvas {
-    top: calc(40px + 5px); 
-    height: calc(100% - 60px);
+    top: calc(40px + 50px); 
+    height: calc(100% - 70px);
+    width: calc(10px + 100px);
+
   }
 
   header {
