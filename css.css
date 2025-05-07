@@ -53,25 +53,40 @@ header {
     
 
 main {
-    position: relative; 
-    height: 100vh; 
-    width: 100%;
-    
-  
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 50px; 
+  height: calc(100vh - 120px);
 }
+
 
 body {
-  overflow: hidden; 
       background-color: black;
+      overflow: hidden;
       
 }
-
 canvas {
   display: block;
-  position: absolute;
-  top: 30%; /* Ajustez en fonction de la hauteur du header */
-  left: 0;
-  width: 100%;
-  height: calc(100% - 100px); /* Hauteur totale moins la hauteur du header */
+  margin: 0 auto;
   background-color: black;
+  width: 700px;
+  height: 700px;
 }
+
+@media (max-width: 1024px) {
+  canvas {
+    width: 500px;
+    height: 500px;
+  }
+}
+
+@media (max-width: 500px) {
+  canvas {
+    width: 350px;
+    height: 350px;
+   
+  }
+}
+
+

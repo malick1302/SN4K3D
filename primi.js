@@ -6,27 +6,22 @@ let food;
 let boxSize = 3;
 let direction = 'RIGHT';
 let clock = new THREE.Clock();
-let moveInterval = 0.15; 
+let moveInterval = 0.15;
 let accumulator = 0;
 let score = 0;
 let isGameOver = false;
 const gridSize = 20;
 const canvas = document.getElementById('c');
-const size = 700;
-
 
 const sharedGeometry = new THREE.TorusKnotGeometry(1, 1.6, 20, 8, 13, 10);
-const headMaterial = new THREE.MeshPhysicalMaterial({ color: 0x00ffb3, metalness: 0, roughness: 0 });
-const bodyMaterial = new THREE.MeshPhysicalMaterial({ color: 0xffff00, metalness: 0, roughness: 0 });
-const foodMaterial = new THREE.MeshPhysicalMaterial({ color: 0xff0066, metalness: 0, roughness: 0 });
-
+const headMaterial = new THREE.MeshPhysicalMaterial({ color: 0x00ffb3 });
+const bodyMaterial = new THREE.MeshPhysicalMaterial({ color: 0xffff00 });
+const foodMaterial = new THREE.MeshPhysicalMaterial({ color: 0xff0066 });
 
 init();
 animate();
-
-
-
-
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
 
 function init() {
   scene = new THREE.Scene();
@@ -35,14 +30,14 @@ function init() {
   camera.position.z = 120;
 
   renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
-  renderer.setSize(size, size);
   renderer.setPixelRatio(window.devicePixelRatio);
-  renderer.setClearColor(0x000000, 0);
+
+  const canvasSize = getCanvasSize();
+  renderer.setSize(canvasSize, canvasSize);
 
   addLights();
   drawGridBorder();
   animateTorus();
-
 
   const head = createTorusKnot(headMaterial);
   head.position.set(0, 0, 0);
@@ -50,13 +45,12 @@ function init() {
   snake.push(head);
 
   spawnFood();
-
   document.addEventListener('keydown', handleKey);
 }
 
-
-
-
+function getCanvasSize() {
+  return canvas.clientWidth; 
+}
 
 function addLights() {
   const light = new THREE.DirectionalLight(0xffffff, 1);
@@ -64,28 +58,17 @@ function addLights() {
   scene.add(light);
 }
 
-
-
-
-
 function drawGridBorder() {
   const size = boxSize * gridSize;
-  const geometry = new THREE.BoxGeometry(size, size, 4.0 );
+  const geometry = new THREE.BoxGeometry(size, size, 4.0);
   const edges = new THREE.EdgesGeometry(geometry);
-  const line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0x66666 }));
+  const line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0x666666 }));
   scene.add(line);
 }
-
-
-
-
 
 function createTorusKnot(material) {
   return new THREE.Mesh(sharedGeometry, material);
 }
-
-
-
 
 function spawnFood() {
   if (food) scene.remove(food);
@@ -96,7 +79,6 @@ function spawnFood() {
   while (!valid) {
     x = (Math.floor(Math.random() * gridSize) - halfGrid) * boxSize;
     y = (Math.floor(Math.random() * gridSize) - halfGrid) * boxSize;
-
     valid = !snake.some(segment => segment.position.x === x && segment.position.y === y);
   }
 
@@ -104,8 +86,6 @@ function spawnFood() {
   food.position.set(x, y, 0);
   scene.add(food);
 }
-
-
 
 function handleKey(e) {
   const key = e.keyCode;
@@ -115,12 +95,10 @@ function handleKey(e) {
   else if (key === 40 && direction !== 'UP') direction = 'DOWN';
 }
 
-
 function animate() {
   if (isGameOver) return;
 
   requestAnimationFrame(animate);
-
   const delta = clock.getDelta();
   accumulator += delta;
 
@@ -131,58 +109,35 @@ function animate() {
 
   snake.forEach(segment => {
     segment.rotation.x += 0.15;
-    segment.rotation.y += 0.15; 
+    segment.rotation.y += 0.15;
   });
+
   if (food) {
-    food.rotation.x += 0.05; 
-    food.rotation.y += 0.05; 
+    food.rotation.x += 0.05;
+    food.rotation.y += 0.05;
   }
 
   renderer.render(scene, camera);
 }
 
 function resizeCanvas() {
-  const canvas = document.querySelector('canvas');
-  const header = document.querySelector('header'); 
-  const headerHeight = header ? header.offsetHeight : 0; 
+  const width = canvas.clientWidth;
+  const height = canvas.clientHeight;
 
-  const width = window.innerWidth; 
-  const height = window.innerHeight - headerHeight; 
-
-  // Met à jour la taille du canvas
-  canvas.style.width = `${width}px`;
-  canvas.style.height = `${height}px`;
-
-  // Met à jour le renderer
   renderer.setSize(width, height);
 
-  // Ajuste la caméra pour inclure tout le cadre
   const aspectRatio = width / height;
-  const gridSizeInUnits = boxSize * gridSize; // Taille totale du cadre
-  const cameraDistance = gridSizeInUnits / (2 * Math.tan((camera.fov * Math.PI) / 360)); // Distance nécessaire pour voir tout le cadre
+  const gridSizeInUnits = boxSize * gridSize;
+  const cameraDistance = (gridSizeInUnits / 2) / Math.tan((camera.fov * Math.PI) / 360);
 
+  camera.position.z = aspectRatio > 1 ? cameraDistance * aspectRatio : cameraDistance;
   camera.aspect = aspectRatio;
-  camera.position.z = cameraDistance; // Ajuste la distance de la caméra
   camera.updateProjectionMatrix();
 }
-
-// Appelle la fonction au chargement de la page
-resizeCanvas();
-
-// Écoute les changements de taille de la fenêtre
-window.addEventListener('resize', resizeCanvas);
-
-
-
-
-
-
-
 
 function updateSnake() {
   const head = snake[0];
   const newHead = createTorusKnot(headMaterial);
-
   let x = head.position.x;
   let y = head.position.y;
 
@@ -192,7 +147,6 @@ function updateSnake() {
   if (direction === 'DOWN') y -= boxSize;
 
   newHead.position.set(x, y, 0);
-
 
   if (newHead.position.distanceTo(food.position) < boxSize / 1.5) {
     score++;
@@ -212,12 +166,9 @@ function updateSnake() {
     checkSelfCollision(newHead)
   ) {
     isGameOver = true;
-    alert(" Game Over!\nScore: " + score);
+    alert(`Game Over!\nScore: ${score}`);
   }
 }
-
-
-
 
 function checkSelfCollision(head) {
   for (let i = 1; i < snake.length; i++) {
@@ -228,12 +179,42 @@ function checkSelfCollision(head) {
   return false;
 }
 
-
-
-  
-function animateTorus(){
-  THREE.LoopPingPong;
-  THREE.InterpolateSmooth;
-
+function animateTorus() {
+ 
 }
 
+
+//partie tactile
+
+let touchStartX = 0;
+let touchStartY = 0;
+
+canvas.addEventListener('touchstart', (e) => {
+  if (e.touches.length === 1) {
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+  }
+}, false);
+
+canvas.addEventListener('touchend', (e) => {
+  if (e.changedTouches.length === 1) {
+    const touchEndX = e.changedTouches[0].clientX;
+    const touchEndY = e.changedTouches[0].clientY;
+
+    const deltaX = touchEndX - touchStartX;
+    const deltaY = touchEndY - touchStartY;
+
+    const absX = Math.abs(deltaX);
+    const absY = Math.abs(deltaY);
+
+    if (Math.max(absX, absY) > 30) { 
+      if (absX > absY) {
+        if (deltaX > 0 && direction !== 'LEFT') direction = 'RIGHT';
+        else if (deltaX < 0 && direction !== 'RIGHT') direction = 'LEFT';
+      } else {
+        if (deltaY > 0 && direction !== 'UP') direction = 'DOWN';
+        else if (deltaY < 0 && direction !== 'DOWN') direction = 'UP';
+      }
+    }
+  }
+}, false);

@@ -5,7 +5,9 @@ Le but étant de manger le plus de nourriture possible sans que le serpent ne se
 Ou encore touche les coins dans le carré dans lequel il est.
 Ce jeu se joue avec les flèches du clavier.
 
-Me but est de m'entrainer à manier les canva et à utiliser au mieux la bibliothèque ThreeJS.
+Me but était dans un premier temps de m'entrainer à manier les canvas.
+Dans un second temps, me permettre de mieux manipuler la bibliothèque ThreeJS.
+Et troisième temps, permettre de rendre tactile le jeu, pour qu'il soit accessible sur téléphone.
 
 
 
