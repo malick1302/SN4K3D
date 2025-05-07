@@ -64,27 +64,28 @@ main {
 body {
       background-color: black;
       overflow: hidden;
+      overflow: hidden;
       
 }
 canvas {
   display: block;
   margin: 0 auto;
   background-color: black;
-  width: 700px;
-  height: 700px;
+  width: 500px;
+  height: 500px;
 }
 
 @media (max-width: 1024px) {
   canvas {
-    width: 500px;
-    height: 500px;
+    width: 350px;
+    height: 350px;
   }
 }
 
 @media (max-width: 500px) {
   canvas {
-    width: 350px;
-    height: 350px;
+    width: 320px;
+    height: 320px;
    
   }
 }
