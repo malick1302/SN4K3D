@@ -64,7 +64,7 @@ main {
 body {
       background-color: black;
       overflow: hidden;
-      overflow: hidden;
+ 
       
 }
 canvas {
@@ -73,12 +73,16 @@ canvas {
   background-color: black;
   width: 500px;
   height: 500px;
+  overflow: hidden;
+
 }
 
 @media (max-width: 1024px) {
   canvas {
     width: 350px;
     height: 350px;
+    overflow: hidden;
+
   }
 }
 
@@ -86,6 +90,8 @@ canvas {
   canvas {
     width: 320px;
     height: 320px;
+    overflow: hidden;
+
    
   }
 }
